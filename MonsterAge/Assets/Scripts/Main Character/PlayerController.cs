@@ -68,9 +68,7 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         _moveDirection3D = new Vector3(_moveDirection2D.x, 0, _moveDirection2D.y);
-        _rb.AddForce(_walkSpeed * _moveDirection3D * Time.deltaTime);
-        var playerForce = _walkSpeed * _moveDirection3D * Time.deltaTime;
-        Debug.Log("walk" + playerForce.magnitude);
+        _rb.AddForce(_walkSpeed * _moveDirection3D * Time.deltaTime, ForceMode.Impulse);
     }
 
     private void Jump()
