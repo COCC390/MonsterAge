@@ -5,6 +5,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    enum AnimationState
+    {
+        MainCharacterIdle,
+        MainCharacterWalk,
+        MainCharacterRun
+    }
+
     #region public variable
     #endregion
 
@@ -17,6 +24,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameInputManager gameInputManager;
     private InputAction _playerMove;
 
+    private AnimationState _currentState;
+
+    private Animator _anim;
     private Rigidbody _rb;
 
     private Vector2 _moveDirection2D;
@@ -45,12 +55,12 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _rb = this.GetComponent<Rigidbody>();
+        _anim = this.GetComponent<Animator>();
     }
 
     void Update()
     {
         _moveDirection2D = _playerMove.ReadValue<Vector2>();
-        //Debug.Log(_moveDirection2D);
     }
 
     private void FixedUpdate()
@@ -58,6 +68,10 @@ public class PlayerController : MonoBehaviour
         if(_moveDirection2D != Vector2.zero)
         {
             Move();
+        }
+        else
+        {
+            ChangeAnimation(AnimationState.MainCharacterIdle);
         }
     }
 
@@ -69,12 +83,22 @@ public class PlayerController : MonoBehaviour
     {
         _moveDirection3D = new Vector3(_moveDirection2D.x, 0, _moveDirection2D.y);
         _rb.AddForce(_walkSpeed * _moveDirection3D * Time.deltaTime, ForceMode.Impulse);
+        ChangeAnimation(AnimationState.MainCharacterWalk);
     }
 
     private void Jump()
     {
 
     }    
+
+    private void ChangeAnimation(AnimationState newAnimationState)
+    {
+        if (_currentState == newAnimationState) return;
+
+        _anim.Play(newAnimationState.ToString());
+
+        _currentState = newAnimationState;
+    }
 
     #endregion
 }

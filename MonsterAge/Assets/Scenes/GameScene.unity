@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1151,11 +1151,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 543450652847898985}
-  - component: {fileID: 919132148840291284}
+  - component: {fileID: 919132148840291287}
   - component: {fileID: 919132148840291286}
   - component: {fileID: 919132148840291285}
-  - component: {fileID: 919132148840291288}
-  - component: {fileID: 919132148840291287}
+  - component: {fileID: 919132148840291284}
   m_Layer: 0
   m_Name: MainCharacter
   m_TagString: Untagged
@@ -1163,25 +1162,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!95 &919132148840291284
-Animator:
-  serializedVersion: 3
+--- !u!114 &919132148840291284
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148840291283}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 310c44fb691857241ab195b4703a2f1f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe8e0c811cec40b49b5b5162a9ddd2f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _walkSpeed: 20
+  _runSpeed: 0
+  _jumpForce: 0
 --- !u!65 &919132148840291285
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1211,51 +1206,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &919132148840291287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132148840291283}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 3ccb6a5d78b00d54f8a8b6a795de86af, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
---- !u!114 &919132148840291288
-MonoBehaviour:
+--- !u!95 &919132148840291287
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148840291283}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe8e0c811cec40b49b5b5162a9ddd2f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _walkSpeed: 100
-  _runSpeed: 0
-  _jumpForce: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 310c44fb691857241ab195b4703a2f1f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &919809470548323880
 Transform:
   m_ObjectHideFlags: 0
