@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     #region private variable
 
     [SerializeField] private float _walkSpeed;
+    [SerializeField] private float _rotateSpeed;
     [SerializeField] private float _runSpeed;
     [SerializeField] private float _jumpForce;
 
@@ -82,8 +83,16 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         _moveDirection3D = new Vector3(_moveDirection2D.x, 0, _moveDirection2D.y);
-        _rb.AddForce(_walkSpeed * _moveDirection3D * Time.deltaTime, ForceMode.Impulse);
+        //_rb.AddForce(_walkSpeed * _moveDirection3D * Time.deltaTime, ForceMode.Impulse);
+        this.transform.position += _moveDirection3D * _walkSpeed * Time.deltaTime;
+        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(_moveDirection3D), Time.deltaTime * _rotateSpeed);
+
         ChangeAnimation(AnimationState.MainCharacterWalk);
+    }
+
+    private void FaceForward()
+    {
+
     }
 
     private void Jump()
