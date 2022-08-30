@@ -12,6 +12,22 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "f581e3b9-2264-4226-9b55-57557194bf40",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Run",
+                    "type": "Button",
+                    "id": "91d7585e-0a25-4905-9e98-100c837002ea",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -71,59 +87,26 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "RunWASD",
-                    "id": "e8bec7c0-c243-4f7f-bfd2-8030dc8f383e",
-                    "path": "2DVector",
+                    "name": "",
+                    "id": "7fd1ea44-1053-404a-8ef6-b454b609b388",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
-                    "isComposite": true,
+                    "action": "Jump",
+                    "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
-                    "id": "b0e512d4-e1c4-4069-b228-5ff20271ac13",
-                    "path": "",
+                    "name": "",
+                    "id": "0688bdb0-f8ce-4e04-84c9-c6b563178a27",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Run",
                     "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "355de693-50e3-4592-92ee-0d97e2e81bef",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "73a8ab18-75bf-4c7d-a2f2-99654574813a",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "0633473f-df23-4f66-9699-f745d2a67664",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 }
             ]
         }

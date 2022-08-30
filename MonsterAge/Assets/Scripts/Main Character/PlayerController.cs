@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
     {
         MainCharacterIdle,
         MainCharacterWalk,
-        MainCharacterRun
+        MainCharacterRun,
+        MainCharacterJump
     }
 
     #region public variable
@@ -24,6 +25,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private GameInputManager gameInputManager;
     private InputAction _playerMove;
+    private InputAction _playerJump;
+    private InputAction _playerRun;
 
     private AnimationState _currentState;
 
@@ -32,6 +35,10 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 _moveDirection2D;
     private Vector3 _moveDirection3D;
+
+    [SerializeField] private bool _isRunning;
+    [SerializeField] private bool _isJumping;
+    [SerializeField] private bool _groundCheck;
 
     #endregion
 
@@ -45,18 +52,32 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         _playerMove = gameInputManager.Player.Move;
+
+        _playerJump = gameInputManager.Player.Jump;
+        _playerJump.performed += _ => _isJumping = true;
+        _playerJump.canceled += _ => _isJumping = false;
+
+        _playerRun = gameInputManager.Player.Run;
+        _playerRun.performed += _ => _isRunning = true;
+        _playerRun.canceled += _ => _isRunning = false;
+
+        _playerJump.Enable();
         _playerMove.Enable();
+        _playerRun.Enable();
     }
 
     private void OnDisable()
     {
         _playerMove.Disable();
+        _playerJump.Disable();
+        _playerRun.Disable();
     }
 
     void Start()
     {
         _rb = this.GetComponent<Rigidbody>();
         _anim = this.GetComponent<Animator>();
+
     }
 
     void Update()
@@ -66,13 +87,31 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(_moveDirection2D != Vector2.zero)
+        if(_moveDirection2D != Vector2.zero && !_isRunning)
         {
             Move();
         }
-        else
+        else if(_moveDirection2D == Vector2.zero && _isRunning)
+        {
+            Run();
+        }
+        else if (_isJumping && _groundCheck)
+        {
+            _groundCheck = false;
+            Jump();
+        }
+        else if(!_groundCheck && !_isJumping || _moveDirection2D == Vector2.zero)
         {
             ChangeAnimation(AnimationState.MainCharacterIdle);
+        }
+        
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Ground")
+        {
+            _groundCheck = true;
         }
     }
 
@@ -83,22 +122,28 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         _moveDirection3D = new Vector3(_moveDirection2D.x, 0, _moveDirection2D.y);
-        //_rb.AddForce(_walkSpeed * _moveDirection3D * Time.deltaTime, ForceMode.Impulse);
         this.transform.position += _moveDirection3D * _walkSpeed * Time.deltaTime;
         this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(_moveDirection3D), Time.deltaTime * _rotateSpeed);
 
         ChangeAnimation(AnimationState.MainCharacterWalk);
     }
 
-    private void FaceForward()
+    private void Run()
     {
+        _moveDirection3D = new Vector3(_moveDirection2D.x, 0, _moveDirection2D.y);
+        this.transform.position += _moveDirection3D * _runSpeed * Time.deltaTime;
+        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(_moveDirection3D), Time.deltaTime * _rotateSpeed);
 
+        ChangeAnimation(AnimationState.MainCharacterRun);
     }
 
     private void Jump()
     {
+        _isJumping = true;
+        _rb.AddForce(this.transform.up * _jumpForce * Time.deltaTime, ForceMode.Impulse);
 
-    }    
+        ChangeAnimation(AnimationState.MainCharacterJump);
+    }
 
     private void ChangeAnimation(AnimationState newAnimationState)
     {
