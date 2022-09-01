@@ -42,6 +42,12 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
+    #region Delegate
+
+
+
+    #endregion
+
     #region Unity Method
 
     private void Awake()
@@ -55,6 +61,7 @@ public class PlayerController : MonoBehaviour
 
         _playerJump = gameInputManager.Player.Jump;
         _playerJump.performed += _ => _isJumping = true;
+        _playerJump.performed -= _ => _isJumping = false;
         _playerJump.canceled += _ => _isJumping = false;
 
         _playerRun = gameInputManager.Player.Run;
@@ -91,16 +98,16 @@ public class PlayerController : MonoBehaviour
         {
             Move();
         }
-        else if(_moveDirection2D == Vector2.zero && _isRunning)
+        else if(_moveDirection2D != Vector2.zero && _isRunning)
         {
             Run();
         }
-        else if (_isJumping && _groundCheck)
-        {
-            _groundCheck = false;
-            Jump();
-        }
-        else if(!_groundCheck && !_isJumping || _moveDirection2D == Vector2.zero)
+        //else if (_isJumping && _groundCheck)
+        //{
+        //    _groundCheck = false;
+        //    Jump();
+        //}
+        else
         {
             ChangeAnimation(AnimationState.MainCharacterIdle);
         }
