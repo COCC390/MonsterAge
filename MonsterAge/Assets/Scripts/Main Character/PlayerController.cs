@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class PlayerController : MonoBehaviour
 {
@@ -111,7 +112,9 @@ public class PlayerController : MonoBehaviour
         {
             ChangeAnimation(AnimationState.MainCharacterIdle);
         }
-        
+
+        int[] number = { 1, 10, 100, -10, -9};
+        var groundCheck = number.Where(CheckGround);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -160,6 +163,8 @@ public class PlayerController : MonoBehaviour
 
         _currentState = newAnimationState;
     }
+
+    private bool CheckGround(int number) => number > 1;
 
     #endregion
 }
