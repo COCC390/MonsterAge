@@ -62,8 +62,7 @@ public class PlayerController : MonoBehaviour
 
         _playerJump = gameInputManager.Player.Jump;
         _playerJump.performed += _ => _isJumping = true;
-        _playerJump.performed -= _ => _isJumping = false;
-        _playerJump.canceled += _ => _isJumping = false;
+        //_playerJump.canceled += _ => _isJumping = false;
 
         _playerRun = gameInputManager.Player.Run;
         _playerRun.performed += _ => _isRunning = true;
@@ -103,24 +102,25 @@ public class PlayerController : MonoBehaviour
         {
             Run();
         }
-        //else if (_isJumping && _groundCheck)
-        //{
-        //    _groundCheck = false;
-        //    Jump();
-        //}
+        else if (_isJumping && _groundCheck)
+        {
+            Jump();
+        }
         else
         {
-            ChangeAnimation(AnimationState.MainCharacterIdle);
+            if(_groundCheck)
+            {
+                ChangeAnimation(AnimationState.MainCharacterIdle);
+            }
         }
 
-        int[] number = { 1, 10, 100, -10, -9};
-        var groundCheck = number.Where(CheckGround);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Ground")
         {
+            _isJumping = false;
             _groundCheck = true;
         }
     }
@@ -150,6 +150,7 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         _isJumping = true;
+        _groundCheck = false;
         _rb.AddForce(this.transform.up * _jumpForce * Time.deltaTime, ForceMode.Impulse);
 
         ChangeAnimation(AnimationState.MainCharacterJump);
