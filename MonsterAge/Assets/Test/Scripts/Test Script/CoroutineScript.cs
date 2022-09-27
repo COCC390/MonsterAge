@@ -12,13 +12,14 @@ public class CoroutineScript : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetKeyDown("f"))
-        //{
-        //    Debug.Log("Fade");
-        //}
+        if (Input.GetKeyDown("f"))
+        {
+            //Debug.Log("Fade");
+            StartCoroutine(TestCoroutine());
+
+        }
         //StartCoroutine(Fade());
 
-        StartCoroutine(TestCoroutine());
     }
 
     IEnumerator Fade()
@@ -35,11 +36,11 @@ public class CoroutineScript : MonoBehaviour
 
     IEnumerator TestCoroutine()
     {
-        //Debug.Log("The First");
+        Debug.Log("The First");
 
-        //yield return null;
+        yield return null;
 
-        Debug.Log("The Scond");
+        Debug.Log("The Second");
 
         yield return new WaitForSeconds(2);
 
