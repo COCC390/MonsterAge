@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
         {
             Move();
         }
-        else if(_moveDirection2D != Vector2.zero && _isRunning)
+        else if(_moveDirection2D != Vector2.zero && _isRunning )
         {
             Run();
         }
@@ -135,7 +135,10 @@ public class PlayerController : MonoBehaviour
         this.transform.position += _moveDirection3D * _walkSpeed * Time.deltaTime;
         this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(_moveDirection3D), Time.deltaTime * _rotateSpeed);
 
-        ChangeAnimation(AnimationState.MainCharacterWalk);
+        if(_groundCheck)
+        {
+            ChangeAnimation(AnimationState.MainCharacterWalk);
+        }
     }
 
     private void Run()
@@ -144,7 +147,10 @@ public class PlayerController : MonoBehaviour
         this.transform.position += _moveDirection3D * _runSpeed * Time.deltaTime;
         this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(_moveDirection3D), Time.deltaTime * _rotateSpeed);
 
-        ChangeAnimation(AnimationState.MainCharacterRun);
+        if (_groundCheck)
+        {
+            ChangeAnimation(AnimationState.MainCharacterRun);
+        }
     }
 
     private void Jump()
@@ -164,8 +170,6 @@ public class PlayerController : MonoBehaviour
 
         _currentState = newAnimationState;
     }
-
-    private bool CheckGround(int number) => number > 1;
 
     #endregion
 }
