@@ -18,8 +18,7 @@ public class SoundSetting : MonoBehaviour
 
     public void OnClickOnOffSoundButton()
     {
-        Debug.Log("On");
-        if (_buttonText.text.Equals("On"))
+        if (_buttonText.text.Trim().Equals("On"))
         {
             Debug.Log("On");
             _buttonText.text = "Off";
