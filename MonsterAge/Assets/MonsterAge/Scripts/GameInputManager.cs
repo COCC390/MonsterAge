@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/GameInputManager.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/MonsterAge/Scripts/GameInputManager.inputactions'
 
 using System;
 using System.Collections;
